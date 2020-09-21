@@ -63,38 +63,79 @@
             <div class="row columns">
               <h1>Banele Hotel Personal Details</h1>
               <label>Name
-                <input type="text" formControlName="name">
+                <input
+                id="name"
+                class="form-control"
+                [ngClass]="{'is-invalid':rForm.get('name').touched && rForm.get('name').invalid}"
+                type="text" formControlName="name">
               </label>
+              <div class="alert" *ngIf="!rForm.controls['name'].valid && rForm.controls['name'].touched">Required!!!</div>
+
+
 
               <label>Last Name
-                <input type="text" formControlName="lname">
+                <input
+                id="lname"
+                class="form-control"
+                [ngClass]="{'is-invalid':rForm.get('lname').touched && rForm.get('lname').invalid}"
+                  type="text"
+                  formControlName="lname">
               </label>
+              <div class="alert" *ngIf="!rForm.controls['lname'].valid && rForm.controls['lname'].touched">Required!!!</div>
 
               <label>Email
-                <input type="email" formControlName="email">
+                <input
+                id="email"
+                class="form-control"
+                [ngClass]="{'is-invalid':rForm.get('email').touched && rForm.get('email').invalid}"
+                type="email" formControlName="email"
+                placeholder="banele@khumalo.co.za">
               </label>
+              <div class="alert" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">Required!!!</div>
+
+                <span *ngIf="rForm.get('email').hasError('required')"></span>
+                <span *ngIf="rForm.get('email').hasError('email')"></span><br>
+              <div class="alert" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">Enter a valid email address for example (banele@khumalo.co.za)</div>
+
 
               <label>Phone
-                <input type="tel" formControlName="phone">
+                <input
+                id="phone"
+                class="form-control"
+                [ngClass]="{'is-invalid':rForm.get('phone').touched && rForm.get('phone').invalid}"
+                type="text" formControlName="phone">
               </label>
+              <div class="alert" *ngIf="!rForm.controls['phone'].valid && rForm.controls['phone'].touched">Required!!!</div>
 
-              <label>password
-                <input type="password" formControlName="password">
+
+              <label>Password
+                <input type="password" formControlName="password" placeholder="$%&Hnambda6FD">
               </label>
-              <label>Description
+              <div class="alert" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched">Required!!!</div>
+
+              <label>Who are you?
                 <textarea type="text" formControlName="description" placeholder="Please tell us more about you"></textarea>
-                 <input type="text" formControlName="description" placeholder="What are your hotel specifications?">
               </label>
+              <div class="alert" *ngIf="!rForm.controls['description'].valid && rForm.controls['description'].touched">Optiona!!!</div>
+
+              <label>Hotel Specification
+                <input type="text" formControlName="description" placeholder="What are your hotel specifications?">
+              </label>
+              <div class="alert" *ngIf="!rForm.controls['description'].valid && rForm.controls['description'].touched">Optional!!!</div>
+
               <label>Check In
                 <input type="date" formControlName="checkin">
               </label>
+              <div class="alert" *ngIf="!rForm.controls['checkin'].valid && rForm.controls['checkin'].touched">Choose a valid date.Starting from {{formatDate}}!!!</div>
+
               <label>Check Out
                 <input type="date" formControlName="checkout">
               </label>
+              <div class="alert" *ngIf="!rForm.controls['checkout'].valid && rForm.controls['checkout'].touched">Choose relavant date!!!</div>
 
 
 
-              <input type="submit" class="button expand" value="Submit Form"[disabled]="rForm.valid">
+              <input type="submit" class="button expand" value="Submit Form"[disabled]="rForm.valid" style="border-radius: 120px;">
             </div>
           </div>
 
@@ -106,33 +147,45 @@
 
             <h2>Welcome&nbsp;{{name}}</h2>
 
-              <form>
+              <form [formGroup]=rForm (ngSubmit)="addPost(rForm.value)">
                 <p>Please enter your bank details</p><br>
                 <div class="col-md-6">
-                  <span>Credit Card Payment</span>
+                  <span>Payment Method</span>
                 </div>
-                <div class="col-md-6 text-right" style="margin-top: -5px;">
-                  <img src="https://img.icons8.com/color/36/000000/visa.png">
-                  <img src="https://img.icons8.com/color/36/000000/mastercard.png">
-                  <img src="https://img.icons8.com/color/36/000000/amex.png">
 
-                </div>
                 <label>Bank Name
                   <input type="text" formControlName="bankName">
                 </label>
+              <div class="alert" *ngIf="!rForm.controls['bankName'].valid && rForm.controls['bankName'].touched">All banks</div>
+
                 <label>Account Holder
                   <input type="text" formControlName="holderName">
                 </label>
+              <div class="alert" *ngIf="!rForm.controls['holderName'].valid && rForm.controls['holderName'].touched">Needed!!!</div>
+
                 <label>Card Number
-                  <input type="number" formControlName="cardNo" >
+                  <input type="text" formControlName="cardNo" >
                 </label>
+              <div class="alert" *ngIf="!rForm.controls['cardNo'].valid && rForm.controls['cardNo'].touched">minimum of 16numbers!No Characters</div>
+
                 <label>cvv
-                  <input type="number" formControlName="cvv">
+                  <input type="text" formControlName="cvv">
                 </label>
+              <div class="alert" *ngIf="!rForm.controls['cvv'].valid && rForm.controls['cvv'].touched">Only 3 numbers</div>
+
                 <label>Expiry Date
                   <input type="date" formControlName="exDate">
                 </label>
+              <div class="alert" *ngIf="!rForm.controls['exDate'].valid && rForm.controls['exDate'].touched">Needed!!!</div>
+
                 <input type="submit" class="button expand" value="Submit Form"[disabled]="rForm.valid">
+
+                <div class="col-md-6 text-right" style="margin-top: -5px;">
+                  <img src="data:image/jpeg;base64,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">
+
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQyLn77wFOiV0il1Piq75GoTzQFECvKGX23lg&usqp=CAU">
+
+                </div>
               </form>
           </div>
         </div>
@@ -159,28 +212,26 @@
             <div class="form-container">
               <div class="row columns">
                 <br><br><br><br><br><br>
-                <h1>Confirmation</h1>
-                <div style="background-color: indigo;color:orange;margin: 50px;">
-                  <h4>The hotel you are looking must have the following specification:</h4>
-                    {{description}}
-                </div>
+                <h1>Verification Output for&nbsp;{{lname}}</h1>
+
                 <form style="background-color: khaki;margin-left:200px;">
                   <h4>Personal Details</h4>
                   <p>Name: {{name}}</p>
                   <p>Last Name: {{lname}}</p>
                   <p>Email: {{email}}</p>
-                  <p>Phone: {{phone}}</p>
                   <p>Password: {{password}}</p>
-                  <p>Check in Date: {{checkin}}</p>
-                  <p>Check out Date {{checkout}}</p>
-                  <hr style="width: 250px;height: 10px;color: lime;">
+                  <p>Phone:{{phone}} </p>
+                  <p>Check in Date:{{checkin}}</p>
+                  <p>Check out Date:{{checkout}}</p>
+                  <hr style="width: 250px;height: 15px;color: lime;">
                   <h4>Bank Details</h4>
-                  <p>Bank Name: </p>
-                  <p>Account Holder Name: {{name}}&nbsp;{{lname}}</p>
-                  <p>Card Number: {{cardNo}}1*** **** **** ***3</p>
-                  <p>CVV: 250</p>
-                  <p>Expiry Date: 2020/12/21</p>
-
+                  <p>Bank Name:{{bankName}} </p>
+                  <p>Account Holder Name: {{holderName}}</p>
+                  <p>Card Number: {{cardNo}}</p>
+                  <p>CVV: {{cvv}}</p>
+                  <p>Expiry Date: {{exDate}}</p>
+                  <h4>The hotel you are looking must have the following specification:</h4>
+                    {{description}}
                 </form>
               </div>
             </div>
@@ -225,7 +276,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let image of images">
-          <td><img [src] = "image.url" style="height: 30; width: 30px; "></td>
+          <td><img [src] = "image.url" style="height: 30px; width: 30px; "></td>
           <td>{{image.name}}</td>
           <td>{{image.type}}</td>
           <td>{{image.size}}</td>
