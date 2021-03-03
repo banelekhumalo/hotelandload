@@ -23,8 +23,8 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      {path:"",component:HomeComponent}
-    ])
+    { path: "", component: HomeComponent }
+], { relativeLinkResolution: 'legacy' })
   ],
   providers: [],
   bootstrap: [AppComponent]
